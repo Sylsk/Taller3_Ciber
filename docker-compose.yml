@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    container_name: miapp-backend
+    ports:
+      - "5555:5555"
+    volumes:
+      - ./backend/data:/app/data
+
+  frontend:
+    build: ./frontend
+    container_name: miapp-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
