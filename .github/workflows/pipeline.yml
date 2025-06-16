@@ -38,7 +38,11 @@ jobs:
     - name: 🔧 Instalar SonarScanner
       run: npm install -g sonar-scanner
 
-    - name: 📊 Análisis con SonarCloud
-      run: sonar-scanner
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: 🔎 Escaneo con SonarCloud
+      uses: SonarSource/sonarcloud-github-action@master
+      with:
+        organization: Sylsk             # tu org en SonarCloud
+        projectKey: Sylsk_Taller3_Ciber # la clave de tu proyecto
+        projectName: MiApp Segura
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
