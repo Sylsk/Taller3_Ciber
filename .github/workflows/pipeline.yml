@@ -7,9 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
+  
   seguridad-y-build:
     runs-on: ubuntu-latest
-
+    permissions:
+      security-events: write
     steps:
     - name: 📥 Clonar repositorio
       uses: actions/checkout@v3
