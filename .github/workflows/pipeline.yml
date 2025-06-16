@@ -1,0 +1,44 @@
+name: Pipeline DevSecOps
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  seguridad-y-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Clonar repositorio
+      uses: actions/checkout@v3
+
+    - name: ⚙️ Configurar Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 📦 Instalar dependencias backend
+      working-directory: ./backend
+      run: npm install
+
+    - name: 📦 Instalar Bandit
+      run: pip install bandit
+
+    - name: 🔎 Bandit - Escaneo de seguridad en backend
+      working-directory: ./backend
+      run: |
+        bandit app.js -f json -o bandit-report.json || true
+        cat bandit-report.json
+
+    - name: 🛡️ Inicializar CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: javascript
+
+    - name: 🛡️ Analizar con CodeQL
+      uses: github/codeql-action/analyze@v2
+
+    - name: 🐳 Build de Docker (opcional)
+      run: docker build -t miapp-backend ./backend
