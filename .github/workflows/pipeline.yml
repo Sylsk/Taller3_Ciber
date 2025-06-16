@@ -41,4 +41,11 @@ jobs:
 
     - name: 🛡️ Escaneo de imagen Docker con Trivy
       run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image miapp-backend || true
-    
+
+    - name: 🔧 Instalar SonarScanner
+      run: npm install -g sonar-scanner
+
+    - name: 📊 Análisis con SonarCloud
+      run: sonar-scanner
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

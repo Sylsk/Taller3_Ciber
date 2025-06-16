@@ -1,0 +1,1 @@
+<!-- Probar integración con SonarCloud -->
