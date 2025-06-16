@@ -25,11 +25,6 @@ jobs:
       working-directory: ./backend
       run: npm install
 
-    - name: 🔍 Análisis de código con ESLint
-      working-directory: ./backend
-      run: |
-        npx eslint . || true
-
     - name: 🐳 Build de imagen Docker del backend
       run: docker build -t miapp-backend ./backend
 
