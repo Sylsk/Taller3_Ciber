@@ -19,18 +19,14 @@ jobs:
       with:
         node-version: '18'
 
-    - name: 📦 Instalar dependencias backend
+    - name: 📦 Instalar dependencias del backend
       working-directory: ./backend
       run: npm install
 
-    - name: 📦 Instalar Bandit
-      run: pip install bandit
-
-    - name: 🔎 Bandit - Escaneo de seguridad en backend
+    - name: 🔍 Análisis de código con ESLint
       working-directory: ./backend
       run: |
-        bandit app.js -f json -o bandit-report.json || true
-        cat bandit-report.json
+        npm run lint || true
 
     - name: 🛡️ Inicializar CodeQL
       uses: github/codeql-action/init@v2
@@ -40,5 +36,9 @@ jobs:
     - name: 🛡️ Analizar con CodeQL
       uses: github/codeql-action/analyze@v2
 
-    - name: 🐳 Build de Docker (opcional)
+    - name: 🐳 Build de imagen Docker del backend
       run: docker build -t miapp-backend ./backend
+
+    - name: 🛡️ Escaneo de imagen Docker con Trivy
+      run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image miapp-backend || true
+    
