@@ -1,4 +1,4 @@
-name: Pipeline DevSecOps
+name: Custom DevSecOps Pipeline
 
 on:
   push:
@@ -7,9 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
-  seguridad-y-build:
+  
+  devsecops-scan:
     runs-on: ubuntu-latest
-
+    permissions:
+      security-events: write
     steps:
     - name: 📥 Clonar repositorio
       uses: actions/checkout@v3
@@ -25,24 +27,19 @@ jobs:
 
     - name: 🔍 Análisis de código con ESLint
       working-directory: ./backend
-      run: npm run lint || true
+      run: |
+        npm run lint || true
 
     - name: 🐳 Build de imagen Docker del backend
       run: docker build -t miapp-backend ./backend
 
     - name: 🛡️ Escaneo de imagen Docker con Trivy
-      run: |
-        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-          aquasec/trivy image miapp-backend || true
+      run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image miapp-backend || true
 
     - name: 🔧 Instalar SonarScanner
       run: npm install -g sonar-scanner
 
-    - name: 🔎 Escaneo con SonarCloud
-      uses: SonarSource/sonarcloud-github-action@master
-      with:
-        organization: Sylsk             # tu org en SonarCloud
-        projectKey: Sylsk_Taller3_Ciber # la clave de tu proyecto
-        projectName: MiApp Segura
-    env:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    - name: 📊 Análisis con SonarCloud
+      run: sonar-scanner
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
