@@ -1,120 +1,91 @@
+# 🛡️ Taller DevSecOps
 
-
-# MiApp Segura - Proyecto DevSecOps
-
-[![Pipeline](https://github.com/Sylsk/Taller3_Ciber/actions/workflows/pipeline.yml/badge.svg)](https://github.com/Sylsk/Taller3_Ciber/actions/workflows/pipeline.yml)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Sylsk_Taller3_Ciber\&metric=alert_status)](https://sonarcloud.io/dashboard?id=Sylsk_Taller3_Ciber)
-
-Aplicación web de notas personales con enfoque DevSecOps: autenticación, creación, visualización y eliminación de notas, junto a un pipeline automatizado de CI/CD que incluye análisis de calidad y seguridad.
+Este proyecto corresponde al desarrollo de una aplicación de notas protegida con buenas prácticas de DevSecOps. Permite iniciar sesión, guardar y eliminar notas, y cuenta con integración de herramientas de análisis de código, seguridad y calidad continua.
 
 ---
 
-## Características
+## ✅ Funcionalidades de la Aplicación
 
-* **Login básico** (usuario: `admin`, contraseña: `123456`)
-* **CRUD de notas**: crear, ver y eliminar notas guardadas en archivo JSON
-* **Frontend**: React con React Router, `localStorage` para sesión persistente
-* **Backend**: Node.js + Express (almacenamiento en `backend/data/notas.json`)
-* **Variables de entorno**: `.env` en `frontend/` (`REACT_APP_API`)
-* **Docker & Docker Compose**: contenedorización de frontend y backend
-* **Análisis de código**: ESLint (backend)
-* **Análisis estático**: CodeQL (workflow separado)
-* **Escaneo de contenedores**: Trivy
-* **Análisis de calidad**: SonarCloud
+- Inicio de sesión con credenciales fijas.
+- Creación y visualización de notas.
+- Eliminación de notas.
+- Backend en Express + archivo JSON.
+- Interfaz web en React.
+- Contenedorización con Docker.
 
 ---
 
-## 📦 Instalación local
+## 🚀 Vista de la aplicación funcionando
 
-### Requisitos
+### 🔐 Inicio de sesión
+![Inicio de sesión](evidencias/iniciosesion.png)
 
-* Node.js v18+
-* npm
+### 📋 Notas en la app
+![Notas en la app](evidencias/notas.png)
 
-### Clonar y ejecutar
-
-```bash
-# Clonar
-git clone https://github.com/Sylsk/Taller3_Ciber.git
-cd Taller3_Ciber
-
-# Backend
-cd backend
-npm install
-npm run lint          # ESLint
-node app.js          # API en http://localhost:5555
-
-# Frontend (en nueva terminal)
-cd ../frontend
-npm install
-npm start            # React en http://localhost:3000
-```
-
-*El frontend leerá la API en `http://localhost:5555` según `REACT_APP_API` definido en `frontend/.env`.*
+### 🔧 Backend funcionando
+![JSON del backend](evidencias/jsonnotas.png)
 
 ---
 
-##  Uso con Docker
+## 🔄 Pipeline DevSecOps
 
-```bash
-# Desde la raíz del proyecto
-docker-compose up --build
-```
+El proyecto cuenta con un pipeline CI/CD implementado con **GitHub Actions**, que automatiza los siguientes pasos:
 
-* **Frontend**: [http://localhost:3000](http://localhost:3000)
-* **Backend** API: [http://localhost:5555](http://localhost:5555)
+- Instalación de dependencias
+- Linter ESLint
+- Build Docker del backend
+- Escaneo de la imagen con Trivy
+- Análisis con SonarCloud
+- Análisis de seguridad con CodeQL
 
-Para detener: `CTRL+C` y luego `docker-compose down`
-
----
-
-## 🔧 Pipeline CI/CD
-
-Este repositorio incluye un workflow DevSecOps (`.github/workflows/pipeline.yml`) que:
-
-1. Clona el código
-2. Instala dependencias del backend
-3. Ejecuta **ESLint** en el backend
-4. Construye la imagen Docker del backend
-5. Escanea la imagen con **Trivy**
-6. Realiza análisis con **SonarCloud** usando `sonar-project.properties`
-7. (Workflow separado `codeql.yml`) Ejecuta **CodeQL** para vulnerabilidades
+### 🟢 Pipeline ejecutado con éxito
+![Pipeline funcionando](evidencias/workflowfuncionando.png)
 
 ---
 
-## Análisis de Seguridad
+## 🔐 Seguridad del Código
 
-* **ESLint**: detecta errores de estilo y posibles bug patterns en JavaScript
-* **Trivy**: detecta vulnerabilidades en la imagen `miapp-backend`
-* **SonarCloud**: métricas de bugs, vulnerabilidades, code smells y duplicaciones
-* **CodeQL**: análisis estático avanzado reportado en GitHub Security
-* **Dependabot** y **Secret scanning**: opcionales, recomendados para más seguridad
+### ✅ Code Scanning con GitHub + CodeQL
+- El análisis estático de código fue ejecutado correctamente.
+- No se encontraron vulnerabilidades abiertas.
+
+![Code scanning sin alertas](evidencias/noalerts.png)
+
+![CodeQL ejecutado](evidencias/codeql.png)
 
 ---
 
-## Estructura del Proyecto
+## 🐳 Escaneo de Contenedor (Trivy)
 
-```
-Taller3_Ciber/
-├── backend/                # API Express + ESLint
-│   ├── data/notas.json
-│   ├── app.js
-│   ├── package.json
-│   └── eslint.config.mjs
-├── frontend/               # App React
-│   ├── public/
-│   ├── src/
-│   │   ├── pages/
-│   │   ├── index.css
-│   │   └── App.js
-│   ├── .env                # REACT_APP_API=http://localhost:5555
-│   └── package.json
-├── .github/
-│   └── workflows/
-│       ├── pipeline.yml    # ESLint, Docker, Trivy, SonarCloud
-│       └── codeql.yml      # CodeQL analysis
-├── docker-compose.yml
-├── sonar-project.properties
-└── README.md
-```
+- Se escaneó la imagen Docker del backend usando [Trivy](https://github.com/aquasecurity/trivy).
+- No se encontraron vulnerabilidades de severidad crítica.
+
+> ⚠️ Salida visible en consola durante ejecución del pipeline.
+
+---
+
+## 📄 Detalles Técnicos
+
+- **Frontend**: React
+- **Backend**: Node.js + Express
+- **Base de datos**: Archivo JSON
+- **CI/CD**: GitHub Actions
+- **Análisis de código**: ESLint, SonarCloud
+- **Seguridad**: Trivy, CodeQL
+
+---
+
+## 📌 Requisitos cumplidos
+
+- ✅ Aplicación funcional y contenedorizada
+- ✅ Pipeline DevSecOps configurado
+- ✅ Análisis de calidad y seguridad automatizados
+- ✅ Evidencias claras e integradas en el proyecto
+
+---
+
+## 👤 Autor
+
+Eduardo Erices, Silas Vieira, Constanza Vazquez 
 
