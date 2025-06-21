@@ -1,10 +1,10 @@
-# 🛡️ Taller DevSecOps
+#  Taller DevSecOps
 
 Este proyecto corresponde al desarrollo de una aplicación de notas protegida con buenas prácticas de DevSecOps. Permite iniciar sesión, guardar y eliminar notas, y cuenta con integración de herramientas de análisis de código, seguridad y calidad continua.
 
 ---
 
-## ✅ Funcionalidades de la Aplicación
+##  Funcionalidades de la Aplicación
 
 - Inicio de sesión con credenciales fijas.
 - Creación y visualización de notas.
@@ -15,20 +15,20 @@ Este proyecto corresponde al desarrollo de una aplicación de notas protegida co
 
 ---
 
-## 🚀 Vista de la aplicación funcionando
+##  Vista de la aplicación funcionando
 
-### 🔐 Inicio de sesión
+###  Inicio de sesión
 ![Inicio de sesión](evidencias/iniciosesion.png)
 
-### 📋 Notas en la app
+###  Notas en la app
 ![Notas en la app](evidencias/notas.png)
 
-### 🔧 Backend funcionando
+###  Backend funcionando
 ![JSON del backend](evidencias/jsonnotas.png)
 
 ---
 
-## 🔄 Pipeline DevSecOps
+##  Pipeline DevSecOps
 
 El proyecto cuenta con un pipeline CI/CD implementado con **GitHub Actions**, que automatiza los siguientes pasos:
 
@@ -39,14 +39,14 @@ El proyecto cuenta con un pipeline CI/CD implementado con **GitHub Actions**, qu
 - Análisis con SonarCloud
 - Análisis de seguridad con CodeQL
 
-### 🟢 Pipeline ejecutado con éxito
+###  Pipeline ejecutado con éxito
 ![Pipeline funcionando](evidencias/workflowfuncionando.png)
 
 ---
 
-## 🔐 Seguridad del Código
+##  Seguridad del Código
 
-### ✅ Code Scanning con GitHub + CodeQL
+###  Code Scanning con GitHub + CodeQL
 - El análisis estático de código fue ejecutado correctamente.
 - No se encontraron vulnerabilidades abiertas.
 
@@ -56,16 +56,16 @@ El proyecto cuenta con un pipeline CI/CD implementado con **GitHub Actions**, qu
 
 ---
 
-## 🐳 Escaneo de Contenedor (Trivy)
+##  Escaneo de Contenedor (Trivy)
 
 - Se escaneó la imagen Docker del backend usando [Trivy](https://github.com/aquasecurity/trivy).
 - No se encontraron vulnerabilidades de severidad crítica.
 
-> ⚠️ Salida visible en consola durante ejecución del pipeline.
+>  Salida visible en consola durante ejecución del pipeline.
 
 ---
 
-## 📄 Detalles Técnicos
+##  Detalles Técnicos
 
 - **Frontend**: React
 - **Backend**: Node.js + Express
@@ -76,16 +76,16 @@ El proyecto cuenta con un pipeline CI/CD implementado con **GitHub Actions**, qu
 
 ---
 
-## 📌 Requisitos cumplidos
+## Requisitos cumplidos
 
-- ✅ Aplicación funcional y contenedorizada
-- ✅ Pipeline DevSecOps configurado
-- ✅ Análisis de calidad y seguridad automatizados
-- ✅ Evidencias claras e integradas en el proyecto
+-  Aplicación funcional y contenedorizada
+-  Pipeline DevSecOps configurado
+-  Análisis de calidad y seguridad automatizados
+-  Evidencias claras e integradas en el proyecto
 
 ---
 
-## 👤 Autor
+##  Autor
 
 Eduardo Erices, Silas Vieira, Constanza Vazquez 
 
